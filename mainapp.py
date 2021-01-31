@@ -14,8 +14,6 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-os.environ["TCL_LIBRARY"] = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python38-32\\tcl\\tcl8.6"
-os.environ["TK_LIBRARY"] = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python38-32\\tcl\\tk8.6"
 
 window = Tk()
 window.title("< JUST - A - WORD >")
@@ -26,14 +24,19 @@ engine=pyttsx3.init()
 voices=engine.getProperty('voices')
 engine.setProperty('voice',voices[1].id)
 r=sr.Recognizer()
+
 def cv():
-    img = cv2.cvtColor(pr.templete, cv2.COLOR_BGR2RGB)
-    img = cv2.resize(img,(int(img.shape[1]*(window.winfo_screenheight()/float(img.shape[0]))),window.winfo_screenheight() - 50))
-    img = Image.fromarray(img)
-    img = ImageTk.PhotoImage(image= img)
-    image_frame.ImageTk = img
-    image_frame.configure(image = img)
-    showid = image_frame.after(10,show)
+        try:
+                img = cv2.cvtColor(pr.templete, cv2.COLOR_BGR2RGB)
+                img = cv2.resize(img,(int(img.shape[1]*(window.winfo_screenheight()/float(img.shape[0]))),window.winfo_screenheight() - 50))
+                img = Image.fromarray(img)
+                img = ImageTk.PhotoImage(image= img)
+                image_frame.ImageTk = img
+                image_frame.configure(image = img)
+                showid = image_frame.after(10,show)
+        except:
+                pass
+
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
